@@ -34,6 +34,7 @@ class _TestMQTTState extends State<TestMQTT> {
 
   @override
   Widget build(BuildContext context) {
+    print("width ${MediaQuery.of(context).size.width}");
     return Scaffold(
       appBar: AppBar(
         title: Text("MQTT Test"),

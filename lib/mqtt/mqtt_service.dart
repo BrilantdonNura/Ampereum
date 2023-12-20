@@ -1,6 +1,6 @@
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:mqtt_client/mqtt_client.dart';
-// import 'package:mqtt_client/mqtt_browser_client.dart';
+import 'package:mqtt_client/mqtt_browser_client.dart'; // when developing in web
 
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -10,19 +10,16 @@ import 'dart:math';
 class MqttService {
   // MqttServerClient? mqttClient;
 
+  final mqttClient = MqttBrowserClient(
+      'ws://192.168.56.1/ws', 'user_${Random().nextInt(10000)}');
 
-  // final mqttClient = kIsWeb
-  //     ? MqttBrowserClient(
-  //         'ws://192.168.56.1/ws', 'user_${Random().nextInt(10000)}')
-  //     : MqttServerClient("192.168.56.1", 'user_${Random().nextInt(10000)}');
-
-  final mqttClient =
-      MqttServerClient("192.168.56.1", 'user_${Random().nextInt(10000)}');
+  // final mqttClient =
+  //     MqttServerClient("192.168.56.1", 'user_${Random().nextInt(10000)}');
 
   Function(dynamic data, dynamic topic)? onDataReceived; // Callback f
 
   Future<void> connect() async {
-    mqttClient.port = 1883;
+    mqttClient.port = 9001; // 1883 over MQTT 9001 over ws
     mqttClient.keepAlivePeriod = 30;
     // mqttClient.secure = false;
 
